@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "727591712703",
+    "firebase_url": "https://sporapp-fcaa6.firebaseio.com",
+    "project_id": "sporapp-fcaa6",
+    "storage_bucket": "sporapp-fcaa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727591712703:android:ce6417384a6d67d3b9930a",
+        "android_client_info": {
+          "package_name": "com.example.bubbles"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727591712703-lt7qspds7krogqm7enhpnfvl0i5sj1h4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bubbles",
+            "certificate_hash": "01778cd02dbc77f93a560766dc5c5e842bbe7b69"
+          }
+        },
+        {
+          "client_id": "727591712703-mbealo12dgpjpecem2rv32h5fimaru7r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnejdvg6pdzKj2UAww0JEmoXxQaKrgCGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727591712703-mbealo12dgpjpecem2rv32h5fimaru7r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
