@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(firebaseUser != null){ // check user session
 
-            Intent i = new Intent(MainActivity.this,Main2Activity.class);
+            Intent i = new Intent(MainActivity.this,SecimActivity.class);
             startActivity(i);
             finish();
         }
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete( Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            Intent i = new Intent(MainActivity.this,Main2Activity.class);
+                            Intent i = new Intent(MainActivity.this,SecimActivity.class);
                             startActivity(i);
                             finish();
 

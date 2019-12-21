@@ -7,15 +7,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerViewAccessibilityDelegate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -29,6 +33,8 @@ public class Main2Activity extends AppCompatActivity {
     private RecyclerView mlistitem;
     private DatabaseReference mDatabase;
     private ArrayList<Blog> arrayList;
+    private FirebaseRecyclerOptions<Blog> options;
+    private FirebaseRecyclerAdapter<Blog,FirebaseViewHolder> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,54 +47,55 @@ public class Main2Activity extends AppCompatActivity {
    mlistitem.setLayoutManager(new LinearLayoutManager(this));
 
    arrayList = new ArrayList<Blog>();
+   options = new FirebaseRecyclerOptions.Builder<Blog>().setQuery(mDatabase,Blog.class).build();
 
-    }
+        adapter = new FirebaseRecyclerAdapter<Blog, FirebaseViewHolder>(options) {
+        @Override
+        protected void onBindViewHolder(@NonNull FirebaseViewHolder holder, int position, @NonNull Blog model) {
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseRecyclerAdapter<Blog, BlogViewHolder>FirebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BlogViewHolder>
-                (Blog.class, R.layout.layout_lisitem, BlogViewHolder.class, mDatabase) {
-
-
-            @Override
-            protected void onBindViewHolder(@NonNull BlogViewHolder viewHolder, int position, @NonNull Blog model) {
-                viewHolder.setDay(model.getDay());
-                viewHolder.setDesc(model.getDesc());
-                viewHolder.setImage(getApplicationContext(),model.getImage());
+            holder.day.setText(model.getDay());
+            holder.desc.setText(model.getDesc());
+            Picasso.get().load(model.getImage()).into(holder.image);
+            final Integer id = model.getId();
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view){
+                        switch (id){
+                            case 1:
+                                Intent intent = new Intent(Main2Activity.this,shoulderActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 2:
+                                Intent intent2 = new Intent(Main2Activity.this,chestActivity.class);
+                                startActivity(intent2);
+                                break;
+                            case 3:
+                            Intent intent3 = new Intent(Main2Activity.this,legActivity.class);
+                            startActivity(intent3);
+                                break;
+                            case 4:
+                            Intent intent4 = new Intent(Main2Activity.this,armActivity.class);
+                            startActivity(intent4);
+                                break;
+                            default:
+                                Toast.makeText(Main2Activity.this,"",Toast.LENGTH_SHORT).show();
+                        }
             }
+            });
 
-            @NonNull
-            @Override
-            public BlogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                return null;
-            }
-        };
-        mlistitem.setAdapter(FirebaseRecyclerAdapter);
-    }
-    public static class BlogViewHolder extends RecyclerView.ViewHolder
-    {
-      View mView;
+        }
 
-        public BlogViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mView = itemView;
+        @NonNull
+        @Override
+        public FirebaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            return new FirebaseViewHolder(LayoutInflater.from(Main2Activity.this).inflate(R.layout.layout_lisitem,parent,false));
         }
-        public void setDay(String day)
-        {
-            TextView post_day = (TextView)mView.findViewById(R.id.post_day);
-            post_day.setText(day);
-        }
-        public void setDesc(String desc)
-        {
-           TextView post_desc = (TextView)mView.findViewById(R.id.post_desc);
-           post_desc.setText(desc);
-        }
-        public void setImage(Context ctx,String image)
-        {
-            ImageView post_image=(ImageView)mView.findViewById(R.id.post_image);
-            Picasso.get().load(image).into(post_image);
-        }
+    };
+        mlistitem.setAdapter(adapter);
+        adapter.startListening();
     }
+
+
+
 
 }

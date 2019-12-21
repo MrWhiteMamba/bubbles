@@ -5,6 +5,9 @@ public class Blog {
     public String getDay() {
         return day;
     }
+    public Integer getId() {
+        return id;
+    }
 
     public void setDay(String day) {
         this.day = day;
@@ -29,11 +32,13 @@ public class Blog {
     private String day;
     private String desc;
     private String image;
+    private Integer id;
 
-    public Blog(String day, String desc, String image) {
+    public Blog(String day, String desc, String image,Integer id) {
         this.day = day;
         this.desc = desc;
         this.image = image;
+        this.id = id;
     }
     public Blog(){
 
